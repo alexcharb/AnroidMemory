@@ -16,8 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.jerem.android_tp2.Menu" />
-        <activity android:name=".Settings"></activity>
     </application>
 
 </manifest>
