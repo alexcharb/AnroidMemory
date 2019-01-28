@@ -6,4 +6,42 @@
     android:layout_height="match_parent"
     tools:context=".Menu">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/shrek"
+            android:layout_weight="1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+            <Button
+                android:id="@+id/playbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jouer"/>
+            <Button
+                android:id="@+id/countdownbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contre la montre"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Records"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paramètres"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
