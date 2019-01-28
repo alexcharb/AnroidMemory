@@ -10,6 +10,8 @@ public class Menu extends AppCompatActivity {
 
     private Button play = null;
     private Button countdown = null;
+    private Button records = null;
+    private Button settings = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
