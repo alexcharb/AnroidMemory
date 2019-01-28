@@ -15,9 +15,15 @@ public class Carte extends Fragment {
 
     private ImageView imageView;
 
+    private int verso;
+
+    private int recto;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        verso = R.drawable.verso;
     }
 
     @Override
@@ -26,8 +32,23 @@ public class Carte extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_carte, container, false);
         imageView = (ImageView)view.findViewById(R.id.imageViewCarte);
-        imageView.setImageResource(R.drawable.verso);
+        imageView.setImageResource(verso);
 
         return view;
+    }
+
+    public void setRecto(int recto)
+    {
+        this.recto = recto;
+    }
+
+    public void swapToRecto()
+    {
+        imageView.setImageResource(recto);
+    }
+
+    public void swapToVerso()
+    {
+        imageView.setImageResource(verso);
     }
 }
