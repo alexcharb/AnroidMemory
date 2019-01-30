@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Settings" />
-        <activity android:name=".Menu"></activity>
+        <activity android:name=".Menu" />
+        <activity android:name=".Victory" />
+        <activity android:name=".Defeat"></activity>
     </application>
 
 </manifest>
