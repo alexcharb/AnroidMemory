@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Timer timeTimer = null;
     private boolean isCountDown = false;
     private int count;
+    private Game game = null;
+    private List<String> listTag = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,17 @@ public class MainActivity extends AppCompatActivity {
         timer = (TextView) findViewById(R.id.timer);
         grid = (GridLayout) findViewById(R.id.myGridLayout);
         cardTags = new ArrayList<String>();
+        listTag = new ArrayList<String>();
+
+        // Create the game
+        game = new Game(4);
 
         customedGrid();
 
         InitMemory();
 
+
+        // Contre la montre ou non
         if(isCountDown)
         {
             initCountDown(10);
@@ -101,14 +109,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     private void InitMemory()
     {
-        for(int i = 0 ; i < nbCards ; i++)
+        Card[] cards = game.getCards();
+
+        for(int i = 0 ; i < game.getNbPair() * 2 ; i++)
         {
             Carte carte = new Carte();
-            carte.setRecto(R.drawable.cancer);
+
+            switch(cards[i].getId()) {
+                case 0:
+                    carte.setRecto(R.drawable.cancer);
+                    carte.setIdCard(0);
+                    break;
+                case 2:
+                    carte.setRecto(R.drawable.leo);
+                    carte.setIdCard(2);
+                    break;
+                case 4:
+                    carte.setRecto(R.drawable.scorpio);
+                    carte.setIdCard(4);
+                    break;
+                case 6:
+                    carte.setRecto(R.drawable.taurus);
+                    carte.setIdCard(6);
+                    break;
+            }
             getSupportFragmentManager().beginTransaction().add(grid.getId(),carte, cardTags.get(i)).commit();
         }
     }
@@ -126,11 +152,57 @@ public class MainActivity extends AppCompatActivity {
             container.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
 
+                    Card[] cards = game.getCards();
+
                     String tag = String.valueOf(view.getTag());
 
-                    Carte carte = (Carte) getSupportFragmentManager().findFragmentByTag(tag);
 
+                    Carte carte = (Carte) getSupportFragmentManager().findFragmentByTag(tag);
                     carte.swapToRecto();
+
+                    // On ajoute la carte courrante
+                    listTag.add(tag);
+
+                    game.OnCardClick(Integer.valueOf(tag.split("_")[1]));
+
+
+                    // Si on a une paire et qu'on a deux cartes, on les laisse tournées
+                    if(game.isPairOkOrNot() && listTag.size() == 2)
+                    {
+                        for (String str : listTag)
+                        {
+                            if (!(cards[Integer.valueOf(tag.split("_")[1])]).isVisible())
+                            {
+                                // On annule toutes les actions possibles sur la carte
+                                view.setOnClickListener(null);
+                            }
+                        }
+
+                        listTag.clear();
+
+                    } // Sinon, si on est à la troisième carte, on vide et on ajoute la carte courrante
+                    else if(listTag.size() == 3)
+                    {
+                        for (String str : listTag)
+                            ((Carte) getSupportFragmentManager().findFragmentByTag(str)).swapToVerso();
+                        listTag.clear();
+                        listTag.add(tag);
+                    }
+
+
+                    /*
+                    if (!game.OnCardClick(Integer.valueOf(tag.split("_")[1])) && listTag.size() == 2) {
+                        for (String str : listTag)
+                            ((Carte) getSupportFragmentManager().findFragmentByTag(str)).swapToVerso();
+                        listTag.clear();
+                    }
+                    else if(listTag.size() == 2)
+                    {
+                        listTag.clear();
+                    }
+
+                    listTag.add(tag);
+                    */
                 }
             });
         }

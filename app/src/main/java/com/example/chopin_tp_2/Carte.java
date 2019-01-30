@@ -16,8 +16,8 @@ public class Carte extends Fragment {
     private ImageView imageView;
 
     private int verso;
-
     private int recto;
+    private int idCard;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,16 @@ public class Carte extends Fragment {
         imageView.setImageResource(verso);
 
         return view;
+    }
+
+    public void setIdCard(int id)
+    {
+        this.idCard = id;
+    }
+
+    public int getIdCard()
+    {
+        return this.idCard;
     }
 
     public void setRecto(int recto)
