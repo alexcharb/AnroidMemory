@@ -71,6 +71,11 @@ public class Game {
     			this.cards[this.listPositionChecked.get(0)].setChecked(false);
     			this.cards[this.listPositionChecked.get(1)].setChecked(false);
 
+                // Une fois qu'on a retourn� les deux cartes, on r�initialise les param�tres
+                this.nbCardChecked = 0;
+                this.listIdChecked.clear();
+                this.listPositionChecked.clear();
+
     			return true;
     		}
     		else
@@ -80,9 +85,9 @@ public class Game {
     		}
     		
     		// Une fois qu'on a retourn� les deux cartes, on r�initialise les param�tres
-    		nbCardChecked = 0;
-    		listIdChecked.clear();
-    		listPositionChecked.clear();
+    		this.nbCardChecked = 0;
+    		this.listIdChecked.clear();
+    		this.listPositionChecked.clear();
     	}
     	
     	return false;
@@ -98,10 +103,27 @@ public class Game {
 		this.listIdChecked.add(this.cards[position].getId());
 		this.listPositionChecked.add(position);
     }
-    
-    public void printForTest()
+
+    public boolean isGameFinished()
     {
-        for (int i=0;i<this.nbPair*2;i++)
-        	System.out.print(this.cards[i].getId() + "\n");
+        for (Card c : cards)
+        {
+            // Si au moins une carte est encore visible, on n'a pas gagné
+            if (c.isVisible() == true)
+                return false;
+        }
+
+        // Si aucune carte n'est visible, on a gagné
+        return true;
     }
+
+    public void resetAllCards()
+    {
+        for (Card c : cards)
+        {
+            c.setChecked(false);
+            c.setVisible(true);
+        }
+    }
+
 }

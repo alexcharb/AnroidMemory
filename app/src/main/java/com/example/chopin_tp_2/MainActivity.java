@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                game.resetAllCards();
+
                 for(String tag : cardTags)
                 {
                     Carte carte = (Carte) getSupportFragmentManager().findFragmentByTag(tag);
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                     initTimer();
                 }
+                AddListener();
             }
         });
     }
@@ -183,26 +186,15 @@ public class MainActivity extends AppCompatActivity {
                     } // Sinon, si on est à la troisième carte, on vide et on ajoute la carte courrante
                     else if(listTag.size() == 3)
                     {
-                        for (String str : listTag)
-                            ((Carte) getSupportFragmentManager().findFragmentByTag(str)).swapToVerso();
+                        // On retire les deux première cartes
+                        for (int i=0;i<2;i++)
+                            ((Carte) getSupportFragmentManager().findFragmentByTag(listTag.get(i))).swapToVerso();
                         listTag.clear();
                         listTag.add(tag);
                     }
 
-
-                    /*
-                    if (!game.OnCardClick(Integer.valueOf(tag.split("_")[1])) && listTag.size() == 2) {
-                        for (String str : listTag)
-                            ((Carte) getSupportFragmentManager().findFragmentByTag(str)).swapToVerso();
-                        listTag.clear();
-                    }
-                    else if(listTag.size() == 2)
-                    {
-                        listTag.clear();
-                    }
-
-                    listTag.add(tag);
-                    */
+                    if (game.isGameFinished())
+                        Toast.makeText(MainActivity.this, "GG MY BOY JOHNNY", Toast.LENGTH_SHORT).show();
                 }
             });
         }
