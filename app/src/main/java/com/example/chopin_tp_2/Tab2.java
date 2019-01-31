@@ -21,16 +21,6 @@ public class Tab2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putString("CM_D", "jeremy:50;");
-        editor.putString("CM_M", "jeremy:40;");
-        editor.putString("CM_F", "jeremy:30;");
-
-        editor.apply();
-
     }
 
     private void updateTextField()
@@ -65,7 +55,7 @@ public class Tab2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tab1, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab2, container, false);
 
         CM_D = (TextView) view.findViewById(R.id.text_CM_D);
         CM_M = (TextView) view.findViewById(R.id.text_CM_M);

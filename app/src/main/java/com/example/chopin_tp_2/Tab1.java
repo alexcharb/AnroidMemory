@@ -23,16 +23,6 @@ public class Tab1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putString("N_D", "aucun");
-        editor.putString("N_M", "jeremy:70;jeremy:60;jeremy:60;");
-        editor.putString("N_F", "jeremy:80;jeremy:60;jeremy:60;");
-
-        editor.apply();
-
     }
 
     private void updateTextField()

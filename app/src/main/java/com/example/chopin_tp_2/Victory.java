@@ -95,11 +95,11 @@ public class Victory extends AppCompatActivity {
                     Intent intent = new Intent(Victory.this,MainActivity.class);
                     if(stringFromGame.split("_")[1].equals("N"))
                     {
-                        intent.putExtra("VALUE", "false");
+                        intent.putExtra("VALUE", "true");
                     }
                     else
                     {
-                        intent.putExtra("VALUE", "true");
+                        intent.putExtra("VALUE", "false");
                     }
                     startActivity(intent);
                 }
@@ -120,11 +120,11 @@ public class Victory extends AppCompatActivity {
         boolean recordApply = false;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String actualRecors = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
+        String actualRecords = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
 
-        if(actualRecors.contains(";")) {
+        if(actualRecords.contains(";")) {
 
-            String[] records = actualRecors.split(";");
+            String[] records = actualRecords.split(";");
 
             int index = 0;
 
@@ -152,9 +152,10 @@ public class Victory extends AppCompatActivity {
 
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putString("N_D", newRecordsString);
+        editor.putString(game_mode + "_" + difficulty, newRecordsString);
 
         editor.apply();
+        recordApply = false;
     }
 
     private boolean checkIfRecord()

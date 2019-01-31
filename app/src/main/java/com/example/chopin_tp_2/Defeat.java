@@ -1,21 +1,40 @@
 package com.example.chopin_tp_2;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class Defeat extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer = null;
     private int musicPosition;
+    private Button buttonMenu = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_defeat);
 
+        buttonMenu = (Button)findViewById(R.id.button_defeat_menu);
+
         musicPosition = 0;
         startMusic();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        buttonMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Defeat.this,Menu.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
