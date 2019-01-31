@@ -29,24 +29,24 @@
             android:layout_height="wrap_content"
             android:text="@string/languages"
             android:textSize="20dp"/>
-        <RadioGroup
+        <LinearLayout
             android:id = "@+id/groupLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id = "@+id/rbLfr"
+            <Button
+                android:id = "@+id/bfr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Français"/>
-            <android.support.v7.widget.AppCompatRadioButton
-                android:id = "@+id/rbLen"
+            <Button
+                android:id = "@+id/ben"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="English"/>
-        </RadioGroup>
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

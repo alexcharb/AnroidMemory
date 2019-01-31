@@ -1,26 +1,29 @@
 package com.example.chopin_tp_2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
 
     private RadioGroup groupDifficulte = null;
-    private RadioButton facileBtn = null;
-    private RadioButton moyenBtn = null;
-    private RadioButton difficileBtn = null;
 
-    private RadioGroup groupLanguage = null;
-    private RadioButton rbLfr = null;
-    private RadioButton rbLen = null;
+    private Button bfr = null;
+    private Button ben = null;
 
     private String mLanguageCode = "fr";
 
+    private boolean test = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +31,13 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         groupDifficulte = (RadioGroup) findViewById(R.id.groupDifficulte);
-        groupLanguage = (RadioGroup) findViewById(R.id.groupLanguage);
 
-        facileBtn = (RadioButton) findViewById(R.id.facileBtn);
-        moyenBtn = (RadioButton) findViewById(R.id.moyenBtn);
-        difficileBtn = (RadioButton) findViewById(R.id.difficileBtn);
 
     }
 
     protected void onStart()
     {
         super.onStart();
-        setContentView(R.layout.activity_settings);
 
         groupDifficulte.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -65,6 +63,30 @@ public class Settings extends AppCompatActivity {
                 }
 
                 editor.apply();
+            }
+        });
+
+        findViewById(R.id.bfr).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Change Application level locale
+                mLanguageCode = "en";
+                LocaleHelper.setLocale(Settings.this, mLanguageCode);
+
+                //It is required to recreate the activity to reflect the change in UI.
+                recreate();
+            }
+        });
+
+        findViewById(R.id.ben).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Change Application level locale
+                //mLanguageCode = "en";
+                LocaleHelper.setLocale(Settings.this, mLanguageCode);
+
+                //It is required to recreate the activity to reflect the change in UI.
+                recreate();
             }
         });
 
