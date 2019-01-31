@@ -122,25 +122,58 @@ public class Victory extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String actualRecords = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
 
-        if(actualRecords.contains(";")) {
+        String[] records = actualRecords.split(";");
 
-            String[] records = actualRecords.split(";");
-
-            int index = 0;
-
-            for(String record : records)
+        if(actualRecords.contains(";") )
+        {
+            if(records.length > 3)
             {
-                if(index<3)
-                {
-                    int tempoTime = Integer.valueOf(record.split(":")[1]);
 
-                    if (tempoTime > timeToFinish && !recordApply) {
+                int index = 0;
+
+                for (String record : records)
+                {
+                    if (index < 3)
+                    {
+
+                        int tempoTimeRecord = Integer.valueOf(record.split(":")[1]);
+
+                        if (tempoTimeRecord > timeToFinish && !recordApply)
+                        {
+                            newRecordsString += String.valueOf(entryNameUser.getText()) + ":" + String.valueOf(timeToFinish) + ";";
+                            recordApply = true;
+                            index++;
+
+                            if (index < 3)
+                            {
+                                newRecordsString += record + ";";
+                                index++;
+                            }
+                        }
+                        else
+                            {
+                            newRecordsString += record + ";";
+                            index++;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (String record : records)
+                {
+                    int tempoTimeRecord = Integer.valueOf(record.split(":")[1]);
+
+                    if (tempoTimeRecord > timeToFinish && !recordApply)
+                    {
                         newRecordsString += String.valueOf(entryNameUser.getText()) + ":" + String.valueOf(timeToFinish) + ";";
+                        newRecordsString += record + ";";
                         recordApply = true;
-                    } else {
+                    }
+                    else
+                    {
                         newRecordsString += record + ";";
                     }
-                    index++;
                 }
             }
 
@@ -170,15 +203,14 @@ public class Victory extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String actualRecors = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
 
-        if(actualRecors.contains(";")) {
+        String[] records = actualRecors.split(";");
 
-            String[] records = actualRecors.split(";");
+        if(actualRecors.contains(";") && records.length >= 3) {
 
             for (String record : records) {
                     int tempoTime = Integer.valueOf(record.split(":")[1]);
                     if (tempoTime > timeToFinish)
                     {
-
                         return true;
                     }
             }
