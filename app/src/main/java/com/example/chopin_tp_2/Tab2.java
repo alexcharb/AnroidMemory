@@ -67,9 +67,9 @@ public class Tab2 extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab1, container, false);
 
-        CM_D = (TextView) view.findViewById(R.id.text_N_D);
-        CM_M = (TextView) view.findViewById(R.id.text_N_M);
-        CM_F = (TextView) view.findViewById(R.id.text_N_F);
+        CM_D = (TextView) view.findViewById(R.id.text_CM_D);
+        CM_M = (TextView) view.findViewById(R.id.text_CM_M);
+        CM_F = (TextView) view.findViewById(R.id.text_CM_F);
 
         updateTextField();
 
