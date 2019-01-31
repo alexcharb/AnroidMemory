@@ -37,7 +37,8 @@ public class Victory extends AppCompatActivity {
         replay = (Button) findViewById(R.id.button_replay);
         text = (TextView) findViewById(R.id.text_victory);
 
-
+        Intent intent = getIntent();
+        stringFromGame = intent.getStringExtra("game_time");
 
         musicPosition = 0;
         startMusic();
