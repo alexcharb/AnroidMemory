@@ -28,8 +28,8 @@ public class Tab1 extends Fragment {
         SharedPreferences.Editor editor = prefs.edit();
 
         editor.putString("N_D", "aucun");
-        editor.putString("N_M", "jeremy:70;jeremy:60;jeremy:60;");
-        editor.putString("N_F", "jeremy:80;jeremy:60;jeremy:60;");
+        editor.putString("N_M", "jeremy:5;jeremy:6;jeremy:7;");
+        editor.putString("N_F", "jeremy:5;jeremy:6;jeremy:7;");
 
         editor.apply();
 
