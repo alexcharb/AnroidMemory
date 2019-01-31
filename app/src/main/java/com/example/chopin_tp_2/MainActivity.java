@@ -46,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
         listTag = new ArrayList<>();
         listPosition = new ArrayList<>();
 
-        // Create the game - GRAPHICS AND ALGORITHM
-        game = new Game(4);
-        customedGrid();
-        InitMemory();
 
 
         // On récupère le menu
@@ -58,7 +54,19 @@ public class MainActivity extends AppCompatActivity {
 
         // On récupère les shared preferences
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String difficulte = prefs.getString("difficulteValue", "F_");
+        String difficulte = prefs.getString("difficulteValue", "D_");
+
+        // Create the game - GRAPHICS AND ALGORITHM
+        if (difficulte == "D_")
+            game = new Game(4);
+        else if (difficulte == "M_")
+            game = new Game(3);
+        else if (difficulte == "F_")
+            game = new Game(2);
+
+
+        customedGrid();
+        InitMemory();
 
         // Contre la montre ou non
         if(isCountDown)
