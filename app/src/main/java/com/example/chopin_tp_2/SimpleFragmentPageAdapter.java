@@ -48,8 +48,8 @@ public class SimpleFragmentPageAdapter extends FragmentPagerAdapter {
     {
         switch(position)
         {
-            case 0: return context.getString(R.string.hello_blank_fragment);
-            case 1: return context.getString(R.string.hello_blank_fragment);
+            case 0: return "Mode Normal";
+            case 1: return "Mode contre la montre";
 
             default : return null;
         }
