@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="Langues"
             android:textSize="20dp"/>
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="English"/>
-        </LinearLayout>
+        </RadioGroup>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,26 +69,29 @@
             android:layout_height="wrap_content"
             android:text="Difficulté"
             android:textSize="20dp"/>
-        <LinearLayout
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <android.support.v7.widget.AppCompatRadioButton
+                android:id = "@+id/facileBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Facile"/>
             <android.support.v7.widget.AppCompatRadioButton
+                android:id = "@+id/moyenBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Moyen"/>
             <android.support.v7.widget.AppCompatRadioButton
+                android:id = "@+id/difficileBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Difficile"/>
-        </LinearLayout>
+        </RadioGroup>
 
         <Button
             android:layout_width="wrap_content"

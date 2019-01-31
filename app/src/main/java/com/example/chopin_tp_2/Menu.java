@@ -38,7 +38,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this,MainActivity.class);
-                intent.putExtra("VALUE", "true");
+                intent.putExtra("VALUE", "false");
                 startActivity(intent);
             }
         });
@@ -47,7 +47,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu.this,MainActivity.class);
-                intent.putExtra("VALUE", "false");
+                intent.putExtra("VALUE", "true");
                 startActivity(intent);
             }
         });
