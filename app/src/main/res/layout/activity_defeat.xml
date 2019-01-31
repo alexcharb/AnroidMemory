@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:adjustViewBounds="false"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/Defeat" />
+        app:srcCompat="@drawable/defeat" />
 
     <TextView
         android:id="@+id/textView9"
