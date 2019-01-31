@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Activity that will be displayed if the player lose the game
+ */
 public class Defeat extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer = null;

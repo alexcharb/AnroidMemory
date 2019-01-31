@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+/**
+ * Activity that will contain two tabs for the records in normal and rush mode.
+ */
 public class Scores extends AppCompatActivity {
 
     private ViewPager viewPager = null;

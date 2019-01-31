@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Activity that will be displayed if the player win the game and will cj^heck and save if the time is better than an older record.
+ */
 public class Victory extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer = null;
@@ -45,6 +48,7 @@ public class Victory extends AppCompatActivity {
 
         isRecord = checkIfRecord();
 
+        // On masque des éléments si ce n'est pas un record
         if(!isRecord)
         {
             entryNameUser.setVisibility(View.GONE);
@@ -61,6 +65,7 @@ public class Victory extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        // On ajoute une fonction pour mettre à jour les records sur un bouton
         if(isRecord) {
             saveRecord.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,34 +86,39 @@ public class Victory extends AppCompatActivity {
             });
         }
 
-            returnMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Victory.this,Menu.class);
-                    startActivity(intent);
-                }
-            });
+        // Boutons pour relancer une partie ou revenir au menu principal
+        returnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Victory.this,Menu.class);
+                startActivity(intent);
+            }
+        });
 
-            replay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(Victory.this,MainActivity.class);
-                    if(stringFromGame.split("_")[1].equals("N"))
-                    {
-                        intent.putExtra("VALUE", "true");
-                    }
-                    else
-                    {
-                        intent.putExtra("VALUE", "false");
-                    }
-                    startActivity(intent);
+        replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Victory.this,MainActivity.class);
+                if(stringFromGame.split("_")[1].equals("N"))
+                {
+                    intent.putExtra("VALUE", "true");
                 }
-            });
+                else
+                {
+                    intent.putExtra("VALUE", "false");
+                }
+                startActivity(intent);
+            }
+        });
 
     }
 
+    /**
+     * Fonction that will parse the actuals records to insert the actual result if it is a record and save it into the shared preferencies.
+     */
     private void updateRecords()
     {
+        // Get and parse the result from the last game
         String[] strings = stringFromGame.split("_");
 
         String game_mode = strings[0];
@@ -119,25 +129,28 @@ public class Victory extends AppCompatActivity {
 
         boolean recordApply = false;
 
+        // Get a string with all the records from the specified categorie
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         String actualRecords = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
 
         String[] records = actualRecords.split(";");
 
+        // On vérifie si le record existe ou pas
         if(actualRecords.contains(";") )
         {
+            // Check if they already are 3 records into the categorie
             if(records.length > 3)
             {
-
                 int index = 0;
 
                 for (String record : records)
                 {
                     if (index < 3)
                     {
-
+                        // Get the time of the record we are observing
                         int tempoTimeRecord = Integer.valueOf(record.split(":")[1]);
 
+                        // Check if the result time is better than an old record and that the actual time has not been already insert
                         if (tempoTimeRecord > timeToFinish && !recordApply)
                         {
                             newRecordsString += String.valueOf(entryNameUser.getText()) + ":" + String.valueOf(timeToFinish) + ";";
@@ -188,9 +201,12 @@ public class Victory extends AppCompatActivity {
         editor.putString(game_mode + "_" + difficulty, newRecordsString);
 
         editor.apply();
-        recordApply = false;
     }
 
+    /**
+     * Fonction that will check if the actual result is  record or not.
+     * @return Boolean that is equal to true if the result is a record.
+     */
     private boolean checkIfRecord()
     {
         String[] strings = stringFromGame.split("_");
