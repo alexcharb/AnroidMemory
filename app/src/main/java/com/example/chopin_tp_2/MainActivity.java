@@ -1,6 +1,9 @@
 package com.example.chopin_tp_2;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Game game = null;
     private List<String> listTag = null;
     private List<Integer> listPosition = null;
+    private String victoryString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +45,33 @@ public class MainActivity extends AppCompatActivity {
         listTag = new ArrayList<>();
         listPosition = new ArrayList<>();
 
-        // Create the game
+        // Create the game - GRAPHICS AND ALGORITHM
         game = new Game(4);
-
         customedGrid();
-
         InitMemory();
 
+
+        // On récupère le menu
+        Intent intent = getIntent();
+        isCountDown = Boolean.parseBoolean(intent.getStringExtra("VALUE"));
+
+        // On récupère les shared preferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String difficulte = prefs.getString("difficulteValue", "F_");
 
         // Contre la montre ou non
         if(isCountDown)
         {
             initCountDown(10);
+            victoryString = "CM_";
         }
         else
         {
             initTimer();
+            victoryString = "N_";
         }
 
-
+        victoryString += difficulte;
     }
 
     @Override
@@ -205,7 +217,15 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (game.isGameFinished())
+                    {
+                        // On ajoute en dernier le temps qu'on a mis
+                        victoryString += String.valueOf(count);
+
                         Toast.makeText(MainActivity.this, "Félicitations, vous avez gagné !", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, Victory.class);
+                        intent.putExtra("game_time", victoryString);
+                        startActivity(intent);
+                    }
                 }
             });
         }
