@@ -61,7 +61,7 @@ public class Game {
     {
     	if (this.nbCardChecked == 2)
     	{
-    		if (this.listIdChecked.get(0) == this.listIdChecked.get(1))
+    		if (this.listIdChecked.get(0) == this.listIdChecked.get(1) && this.listPositionChecked.get(0) != this.listPositionChecked.get(1) )
     		{
     			// On fait disparaitre les cartes en question
     			this.cards[this.listPositionChecked.get(0)].setVisible(false);
@@ -80,28 +80,55 @@ public class Game {
     		}
     		else
     		{
-    			this.cards[this.listPositionChecked.get(0)].setChecked(false);
-    			this.cards[this.listPositionChecked.get(1)].setChecked(false);
+    		    if (this.listPositionChecked.get(0) == this.listPositionChecked.get(1))
+                {
+                    // Do nothing
+                }
+                else
+                {
+                    this.cards[this.listPositionChecked.get(0)].setChecked(false);
+                    this.cards[this.listPositionChecked.get(1)].setChecked(false);
+                    // Une fois qu'on a retourn� les deux cartes, on r�initialise les param�tres
+                    this.nbCardChecked = 0;
+                    this.listIdChecked.clear();
+                    this.listPositionChecked.clear();
+                }
+
     		}
-    		
-    		// Une fois qu'on a retourn� les deux cartes, on r�initialise les param�tres
-    		this.nbCardChecked = 0;
-    		this.listIdChecked.clear();
-    		this.listPositionChecked.clear();
-    	}
-    	
-    	return false;
+        }
+
+        return false;
     }
     
     public void OnCardClick(int position)
     {
-    	// On change l'état de la carte courante
-    	this.cards[position].setChecked(true);
-    	
-    	// On met � jour le nombre de carte checked
-		this.nbCardChecked++;
-		this.listIdChecked.add(this.cards[position].getId());
-		this.listPositionChecked.add(position);
+        // Si on a choisi une seule carte
+        if (this.listIdChecked.size() == 1)
+        {
+            if (position != this.listPositionChecked.get(0))
+            {
+                // On change l'état de la carte courante
+                this.cards[position].setChecked(true);
+
+                // On met � jour le nombre de carte checked
+                this.nbCardChecked++;
+                this.listIdChecked.add(this.cards[position].getId());
+                this.listPositionChecked.add(position);
+            }
+        }
+        // Si on est à la première carte uniquement -> On fait normalement
+        else if (this.listIdChecked.size() == 0)
+        {
+            // On change l'état de la carte courante
+            this.cards[position].setChecked(true);
+
+            // On met � jour le nombre de carte checked
+            this.nbCardChecked++;
+            this.listIdChecked.add(this.cards[position].getId());
+            this.listPositionChecked.add(position);
+        }
+
+
     }
 
     public boolean isGameFinished()
