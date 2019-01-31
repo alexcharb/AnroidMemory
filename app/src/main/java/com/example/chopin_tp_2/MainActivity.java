@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> listTag = null;
     private List<Integer> listPosition = null;
     private String victoryString;
+    private long timeRemaining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,8 +219,11 @@ public class MainActivity extends AppCompatActivity {
 
                     if (game.isGameFinished())
                     {
-                        // On ajoute en dernier le temps qu'on a mis
-                        victoryString += String.valueOf(count);
+                        if (isCountDown)
+                            victoryString += String.valueOf(timeRemaining);
+                        else
+                            // On ajoute en dernier le temps qu'on a mis
+                            victoryString += String.valueOf(count);
 
                         Toast.makeText(MainActivity.this, "Félicitations, vous avez gagné !", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, Victory.class);
@@ -247,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 timer.setText(String.valueOf(millisUntilFinished / 1000));
+                timeRemaining = millisUntilFinished / 1000;
             }
 
             @Override
