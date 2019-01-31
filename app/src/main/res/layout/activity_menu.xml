@@ -14,15 +14,21 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_main_menu" />
+            android:layout_weight="2.5"
+            android:scaleType="fitCenter"
+            android:src="@drawable/memory" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center_vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text = "\@By Alexandre Durandeau, Alex Charbonnier, Jérémy Chopin"
+                />
             <Button
                 android:id="@+id/playbutton"
                 android:layout_width="match_parent"

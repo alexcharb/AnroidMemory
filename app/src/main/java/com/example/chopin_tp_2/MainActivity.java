@@ -14,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Integer> listPosition = null;
     private String victoryString;
     private long timeRemaining;
+    private int randomGraphics;
 
     private MediaPlayer mediaPlayer = null;
     private int musicPosition;
@@ -128,18 +131,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+       /* if (countDownTimer != null)
+            countDownTimer.cancel();
+            */
         startMusic();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
         stopMusic();
     }
-
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (countDownTimer != null)
+            countDownTimer.cancel();
         stopMusic();
     }
 
@@ -190,33 +206,89 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitMemory()
     {
+        // On initialise une valeur random entre 3 pour choisir les textures
+        randomGraphics = new Random().nextInt(3);
+
         Card[] cards = game.getCards();
 
         for(int i = 0 ; i < game.getNbPair() * 2 ; i++)
         {
             Carte carte = new Carte();
 
-            switch(cards[i].getId()) {
+            switch (randomGraphics)
+            {
                 case 0:
-                    carte.setRecto(R.drawable.cancer);
-                    carte.setIdCard(0);
+                    carte.setVerso(R.drawable.astro);
+                    switch(cards[i].getId()) {
+                        case 0:
+                            carte.setRecto(R.drawable.cancer);
+                            carte.setIdCard(0);
+                            break;
+                        case 2:
+                            carte.setRecto(R.drawable.leo);
+                            carte.setIdCard(2);
+                            break;
+                        case 4:
+                            carte.setRecto(R.drawable.scorpio);
+                            carte.setIdCard(4);
+                            break;
+                        case 6:
+                            carte.setRecto(R.drawable.taurus);
+                            carte.setIdCard(6);
+                            break;
+                    }
                     break;
+
+
+                case 1:
+                    carte.setVerso(R.drawable.super_heros);
+                    switch(cards[i].getId()) {
+                        case 0:
+                            carte.setRecto(R.drawable.ironman);
+                            carte.setIdCard(0);
+                            break;
+                        case 2:
+                            carte.setRecto(R.drawable.superman);
+                            carte.setIdCard(2);
+                            break;
+                        case 4:
+                            carte.setRecto(R.drawable.spiderman);
+                            carte.setIdCard(4);
+                            break;
+                        case 6:
+                            carte.setRecto(R.drawable.captain_america);
+                            carte.setIdCard(6);
+                            break;
+                    }
+                    break;
+
+
                 case 2:
-                    carte.setRecto(R.drawable.leo);
-                    carte.setIdCard(2);
-                    break;
-                case 4:
-                    carte.setRecto(R.drawable.scorpio);
-                    carte.setIdCard(4);
-                    break;
-                case 6:
-                    carte.setRecto(R.drawable.taurus);
-                    carte.setIdCard(6);
+                    carte.setVerso(R.drawable.verso_fruit);
+                    switch(cards[i].getId()) {
+                        case 0:
+                            carte.setRecto(R.drawable.orange);
+                            carte.setIdCard(0);
+                            break;
+                        case 2:
+                            carte.setRecto(R.drawable.pomme);
+                            carte.setIdCard(2);
+                            break;
+                        case 4:
+                            carte.setRecto(R.drawable.cerise);
+                            carte.setIdCard(4);
+                            break;
+                        case 6:
+                            carte.setRecto(R.drawable.banane);
+                            carte.setIdCard(6);
+                            break;
+                    }
                     break;
             }
             getSupportFragmentManager().beginTransaction().add(grid.getId(),carte, cardTags.get(i)).commit();
         }
-    }
+        }
+
 
     private void AddListener()
     {
@@ -281,7 +353,9 @@ public class MainActivity extends AppCompatActivity {
                     if (game.isGameFinished())
                     {
                         if (isCountDown)
+                        {
                             victoryString += String.valueOf(timeRemaining);
+                        }
                         else
                             // On ajoute en dernier le temps qu'on a mis
                             victoryString += String.valueOf(count);
@@ -316,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                countDownTimer.cancel();
                 Intent intent = new Intent(MainActivity.this, Defeat.class);
                 startActivity(intent);
             }

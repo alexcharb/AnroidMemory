@@ -23,7 +23,6 @@ public class Carte extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        verso = R.drawable.verso;
     }
 
     @Override
@@ -51,6 +50,8 @@ public class Carte extends Fragment {
     {
         this.recto = recto;
     }
+
+    public void setVerso(int verso) { this.verso = verso; }
 
     public void swapToRecto()
     {

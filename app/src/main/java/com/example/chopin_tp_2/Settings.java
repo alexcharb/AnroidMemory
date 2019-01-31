@@ -39,7 +39,6 @@ public class Settings extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
-        setContentView(R.layout.activity_settings);
 
         groupDifficulte.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
