@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Paramètres"
+            android:text="@string/settings"
             android:textStyle="bold"
             android:textSize="30dp"
             android:layout_gravity="center_horizontal"/>
@@ -22,12 +22,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Général"
+            android:text="@string/general"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Langues"
+            android:text="@string/languages"
             android:textSize="20dp"/>
         <RadioGroup
             android:id = "@+id/groupLanguage"
@@ -47,30 +47,16 @@
                 android:layout_weight="1"
                 android:text="English"/>
         </RadioGroup>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mode nuit"
-                android:textSize="20dp"/>
-            <android.support.v7.widget.AppCompatCheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jeu"
+            android:text="@string/game"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Difficulté"
+            android:text="@string/difficulty"
             android:textSize="20dp"/>
         <RadioGroup
             android:id = "@+id/groupDifficulte"
@@ -82,26 +68,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Facile"/>
+                android:text="@string/easy"/>
             <android.support.v7.widget.AppCompatRadioButton
                 android:id = "@+id/moyenBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Moyen"/>
+                android:text="@string/normal"/>
             <android.support.v7.widget.AppCompatRadioButton
                 android:id = "@+id/difficileBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Difficile"/>
+                android:text="@string/hard"/>
         </RadioGroup>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Valider"
-            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

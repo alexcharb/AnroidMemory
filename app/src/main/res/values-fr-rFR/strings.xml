@@ -1,8 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">TP_2</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Paramètres</string>
+    <string name="app_name">TP_2</string>
     <string name="settings">Paramètres</string>
     <string name="general">Général</string>
     <string name="languages">Langue</string>
@@ -13,4 +11,5 @@
     <string name="normal">Moyen</string>
     <string name="hard">Difficile</string>
     <string name="validate">Valider</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

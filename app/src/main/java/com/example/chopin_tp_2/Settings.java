@@ -15,6 +15,12 @@ public class Settings extends AppCompatActivity {
     private RadioButton moyenBtn = null;
     private RadioButton difficileBtn = null;
 
+    private RadioGroup groupLanguage = null;
+    private RadioButton rbLfr = null;
+    private RadioButton rbLen = null;
+
+    private String mLanguageCode = "fr";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         groupDifficulte = (RadioGroup) findViewById(R.id.groupDifficulte);
+        groupLanguage = (RadioGroup) findViewById(R.id.groupLanguage);
 
         facileBtn = (RadioButton) findViewById(R.id.facileBtn);
         moyenBtn = (RadioButton) findViewById(R.id.moyenBtn);
@@ -32,6 +39,7 @@ public class Settings extends AppCompatActivity {
     protected void onStart()
     {
         super.onStart();
+        setContentView(R.layout.activity_settings);
 
         groupDifficulte.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -43,15 +51,15 @@ public class Settings extends AppCompatActivity {
                 SharedPreferences.Editor editor = prefs.edit();
 
 
-                if (selected.getText() == "facile")
+                if (selected.getText().equals("Facile") || selected.getText().equals("Easy"))
                 {
                     editor.putString("difficulteValue", "F_");
                 }
-                else if (selected.getText() == "moyen")
+                else if (selected.getText().equals("Moyen") || selected.getText().equals("Normal"))
                 {
                     editor.putString("difficulteValue", "M_");
                 }
-                else if (selected.getText() == "difficile")
+                else if (selected.getText().equals("Difficile") || selected.getText().equals("Hard"))
                 {
                     editor.putString("difficulteValue", "D_");
                 }
