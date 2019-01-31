@@ -17,9 +17,20 @@
         app:srcCompat="@drawable/defeat" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/text_defeat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:text="TextView" />
+        android:text="C'est une défaite malheureusement !"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_defeat_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:text="Menu" />
+
 </LinearLayout>

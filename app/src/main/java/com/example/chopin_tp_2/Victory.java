@@ -120,11 +120,11 @@ public class Victory extends AppCompatActivity {
         boolean recordApply = false;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        String actualRecors = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
+        String actualRecords = prefs.getString(game_mode + "_" + difficulty,"Aucun records encore établi");
 
-        if(actualRecors.contains(";")) {
+        if(actualRecords.contains(";")) {
 
-            String[] records = actualRecors.split(";");
+            String[] records = actualRecords.split(";");
 
             int index = 0;
 

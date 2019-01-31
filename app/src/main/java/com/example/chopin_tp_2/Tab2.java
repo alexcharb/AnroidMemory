@@ -21,16 +21,6 @@ public class Tab2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putString("CM_D", "jeremy:5;");
-        editor.putString("CM_M", "jeremy:4;");
-        editor.putString("CM_F", "jeremy:3;");
-
-        editor.apply();
-
     }
 
     private void updateTextField()
