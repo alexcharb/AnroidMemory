@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
         String difficulte = prefs.getString("difficulteValue", "D_");
 
         // Create the game - GRAPHICS AND ALGORITHM
-        if (difficulte == "D_")
+        if (difficulte.equals("D_"))
             game = new Game(4);
-        else if (difficulte == "M_")
+        else if (difficulte.equals("M_"))
             game = new Game(3);
-        else if (difficulte == "F_")
+        else if (difficulte.equals("F_"))
             game = new Game(2);
 
 
@@ -233,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
                             // On ajoute en dernier le temps qu'on a mis
                             victoryString += String.valueOf(count);
 
-                        Toast.makeText(MainActivity.this, "Félicitations, vous avez gagné !", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, Victory.class);
                         intent.putExtra("game_time", victoryString);
                         startActivity(intent);
@@ -264,9 +263,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-                Toast.makeText(getBaseContext(), "Loser",Toast.LENGTH_LONG).show();
-
+                Intent intent = new Intent(MainActivity.this, Defeat.class);
+                startActivity(intent);
             }
         };
 
