@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private Timer timeTimer = null;
     private boolean isCountDown = false;
     private int count;
+    private Game game = null;
+    private List<String> listTag = null;
+    private List<Integer> listPosition = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,19 @@ public class MainActivity extends AppCompatActivity {
         resetButton = (Button) findViewById(R.id.resetbutton);
         timer = (TextView) findViewById(R.id.timer);
         grid = (GridLayout) findViewById(R.id.myGridLayout);
-        cardTags = new ArrayList<String>();
+        cardTags = new ArrayList<>();
+        listTag = new ArrayList<>();
+        listPosition = new ArrayList<>();
+
+        // Create the game
+        game = new Game(4);
 
         customedGrid();
 
         InitMemory();
 
+
+        // Contre la montre ou non
         if(isCountDown)
         {
             initCountDown(10);
@@ -60,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                game.resetAllCards();
 
                 for(String tag : cardTags)
                 {
@@ -82,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
                     initTimer();
                 }
+                AddListener();
             }
         });
     }
@@ -101,14 +114,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     private void InitMemory()
     {
-        for(int i = 0 ; i < nbCards ; i++)
+        Card[] cards = game.getCards();
+
+        for(int i = 0 ; i < game.getNbPair() * 2 ; i++)
         {
             Carte carte = new Carte();
-            carte.setRecto(R.drawable.cancer);
+
+            switch(cards[i].getId()) {
+                case 0:
+                    carte.setRecto(R.drawable.cancer);
+                    carte.setIdCard(0);
+                    break;
+                case 2:
+                    carte.setRecto(R.drawable.leo);
+                    carte.setIdCard(2);
+                    break;
+                case 4:
+                    carte.setRecto(R.drawable.scorpio);
+                    carte.setIdCard(4);
+                    break;
+                case 6:
+                    carte.setRecto(R.drawable.taurus);
+                    carte.setIdCard(6);
+                    break;
+            }
             getSupportFragmentManager().beginTransaction().add(grid.getId(),carte, cardTags.get(i)).commit();
         }
     }
@@ -126,14 +157,66 @@ public class MainActivity extends AppCompatActivity {
             container.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View view){
 
+                    Card[] cards = game.getCards();
+
                     String tag = String.valueOf(view.getTag());
 
                     Carte carte = (Carte) getSupportFragmentManager().findFragmentByTag(tag);
-
                     carte.swapToRecto();
+
+                    int position = Integer.valueOf(tag.split("_")[1]);
+                    // On ajoute la carte courrante
+                    listTag.add(tag);
+                    listPosition.add(position);
+
+                    game.OnCardClick(position);
+
+                    if (listTag.size() == 2)
+                        if (isSameCard(listPosition.get(0), listPosition.get(1)))
+                        {
+                            // Si on a choisi la même carte, on enlève le coup qu'on vient de faire et on revient en arrière
+                            listTag.remove(1);
+                            listPosition.remove(1);
+                        }
+
+
+                    // Si on a une paire et qu'on a deux cartes, on les laisse tournées
+                    if(game.isPairOkOrNot() && listTag.size() == 2)
+                    {
+                        // On disable les deux cartes
+                        disableListener();
+                        listTag.clear();
+
+                    } // Sinon, si on est à la troisième carte, on vide et on ajoute la carte courrante
+                    else if(listTag.size() == 3)
+                    {
+                        // On retire les deux première cartes, on les retournes
+                        for (int i=0;i<2;i++)
+                            ((Carte) getSupportFragmentManager().findFragmentByTag(listTag.get(i))).swapToVerso();
+                        listTag.clear();
+                        listPosition.clear();
+
+                        // Si on a cliqué sur une des deux cartes, on la re retourne
+                        ((Carte) getSupportFragmentManager().findFragmentByTag(tag)).swapToRecto();
+
+                        // On ajoute la nouvelle carte
+                        listTag.add(tag);
+                        listPosition.add(position);
+                    }
+
+                    if (game.isGameFinished())
+                        Toast.makeText(MainActivity.this, "Félicitations, vous avez gagné !", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+    }
+
+    private boolean isSameCard(int position1, int position2)
+    {
+        if (position1 == position2)
+            return true;
+        else
+            return false;
     }
 
     private void initCountDown(int time)
@@ -168,5 +251,15 @@ public class MainActivity extends AppCompatActivity {
                 count++;
             }
         }, 1000, 1000);
+    }
+
+    private void disableListener()
+    {
+        for (String tag : listTag)
+        {
+            View container =  grid.getChildAt(Integer.valueOf(tag.split("_")[1]));
+
+            container.setOnClickListener(null);
+        }
     }
 }
